@@ -1,19 +1,28 @@
 import express from 'express';
 import { Server } from 'socket.io';
-import http from 'http';
-import dotenv from 'dotenv';
+import http, { get } from 'http';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 import { MONGO_URI } from './constants.js';
 
 const app = express();
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
+const corsOptions = {
+    credentials: true,
+    origin:"http://localhost:3000",
+  };
+app.use(cors(corsOptions));
 
 // import routes
 import userRoutes from './routes/user.routes.js';
 
-// using routes
-app.use("/api/user",userRoutes);
+
 
 const server = http.createServer(app);
 const io = new Server(server,{
@@ -22,6 +31,7 @@ const io = new Server(server,{
         credentials: true
     }
 });
+
 
 mongoose.connect(MONGO_URI,{
     useNewUrlParser:true,
@@ -32,9 +42,8 @@ mongoose.connect(MONGO_URI,{
     console.log("ERROR CONNECTION DATABSE",err);
 })
 
-app.use(cors({
-    origin:'*'
-}));
+// using routes
+app.use("/api/user",userRoutes);
 
 io.on('connection', (socket) => {
     let id = socket.handshake.query.id;

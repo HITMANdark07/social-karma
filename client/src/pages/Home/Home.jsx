@@ -9,9 +9,14 @@ const Home =() => {
     const user = useSelector(state => state.user.user);
     console.log(user);
 
-    const responseGoogle = (tokenId) => {
-        // dispatch(googleLogin(tokenId));
-        console.log(tokenId);
+    const responseGoogle = (tokenId, profileObj) => {
+        const sendData = {
+            name: profileObj.givenName+" "+profileObj.familyName,
+            email: profileObj.email,
+            photo: profileObj.imageUrl,
+            idToken:tokenId
+        }
+        dispatch(googleLogin(sendData));
     }
 
     return(

@@ -26,10 +26,10 @@ const userSlice = createSlice({
         state.isSuccess = false
         state.message = ''
       })
-  
       builder.addCase(googleLogin.fulfilled, (state, action) => {
         state.isSuccess = true
-        state.token = action.payload
+        state.token = action.payload?.token
+        state.user = action.payload?.user
         state.isError = false
         state.isLoading = false
         state.message = ''

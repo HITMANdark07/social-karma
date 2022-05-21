@@ -115,7 +115,7 @@ export const login = (req, res) => {
                                         error: errorHandler(err)
                                     })
                                 }
-                                const token = jwt.sign({_id: us._id}, process.env.JWT_SECRET);
+                                const token = jwt.sign({_id: us._id}, NODE_JWT_SECRET);
                                 res.cookie('t', token, {expire: new Date() + 9999})
                                 await res.json({
                                         token,
@@ -138,7 +138,7 @@ export const login = (req, res) => {
                     error: "Your Account is Locked"
                 })
             }else if(user && user.activated===1){
-                const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
+                const token = jwt.sign({_id: user._id}, NODE_JWT_SECRET);
                 res.cookie('t', token, {expire: new Date() + 9999})
                 return res.json({
                     token,
