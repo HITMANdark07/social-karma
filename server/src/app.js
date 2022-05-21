@@ -4,9 +4,16 @@ import http from 'http';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import { MONGO_URI } from './constants.js';
 
 const app = express();
-dotenv.config()
+
+
+// import routes
+import userRoutes from './routes/user.routes.js';
+
+// using routes
+app.use("/api/user",userRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server,{
@@ -16,7 +23,7 @@ const io = new Server(server,{
     }
 });
 
-mongoose.connect(process.env.MONGO_URI,{
+mongoose.connect(MONGO_URI,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 }).then(() => {

@@ -1,12 +1,13 @@
 import User from '../models/user.model.js'
 import jwt from 'jsonwebtoken';
-const expressJwt = require('express-jwt');
+import { expressjwt } from 'express-jwt';
 import { OAuth2Client } from 'google-auth-library';
-import { errorHandler } from '../helpers/dbErrorHandler';
-const clinet = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+import { errorHandler } from '../helpers/dbErrorHandler.js';
+import { GOOGLE_CLIENT_ID, NODE_JWT_SECRET } from '../constants.js';
+const clinet = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 
-exports.userById = (req, res, next, id) => {
+export const userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if(err || !user){
             return res.status(400).json({
@@ -17,7 +18,7 @@ exports.userById = (req, res, next, id) => {
         next();
     })
 }
-exports.getProfile = (req, res) => {
+export const getProfile = (req, res) => {
     const { _id, name , email , phone, activated,photo, balance, role, verified} = req.profile;
     const token = jwt.sign({_id:_id}, process.env.JWT_SECRET);
     return res.status(200).json({
@@ -33,7 +34,7 @@ exports.getProfile = (req, res) => {
         }
     })
 }
-exports.list = async(req, res) => {
+export const list = async(req, res) => {
     let q={};
     let qry = req.query;
     let limit = qry.limit || 10;
@@ -68,8 +69,13 @@ function generateOTP() {
     return OTP;
 }
 
+export const requireSignin = expressjwt({
+    secret:NODE_JWT_SECRET,
+    algorithms: ['HS256'] ,
+    userProperty:"auth"
+});
 
-exports.search = (req, res) => {
+export const search = (req, res) => {
     let q={isDeleted:false};
     let qry = req.query;
     if(qry?.email){
@@ -93,7 +99,7 @@ exports.search = (req, res) => {
     })
 }
 
-exports.login = (req, res) => {
+export const login = (req, res) => {
     User.findOne({email: req.body.email}).exec((err, user) => {
         if(err || !user){
             const { idToken, name, photo } = req.body;
@@ -147,13 +153,7 @@ exports.login = (req, res) => {
     })
 }
 
-exports.requireSignin = expressJwt({
-    secret: process.env.JWT_SECRET,
-    algorithms: ['HS256'] ,
-    userProperty:"auth"
-});
-
-exports.isUser = (req, res, next) => {
+export const isUser = (req, res, next) => {
     let user = req.profile && req.auth && req.profile._id == req.auth._id;
     if(!user){
        return res.status(403).json({ 
