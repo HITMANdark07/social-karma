@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 
 // import routes
 import userRoutes from './routes/user.routes.js';
-
+import foodDonationRoutes from './routes/foodDonation.routes.js';
 
 
 const server = http.createServer(app);
@@ -44,6 +44,7 @@ mongoose.connect(MONGO_URI,{
 
 // using routes
 app.use("/api/user",userRoutes);
+app.use("/api/fooddonation",foodDonationRoutes);
 
 io.on('connection', (socket) => {
     let id = socket.handshake.query.id;
