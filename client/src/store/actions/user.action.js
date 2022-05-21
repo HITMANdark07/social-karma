@@ -6,7 +6,7 @@ export const googleLogin = createAsyncThunk(
     'user/login',
     async (data, { rejectWithValue }) => {
       try {
-        const response = await api.post('/users/google-login', data)
+        const response = await api.post('/user/login', data)
         return response.data
       } catch (error) {
         const message =
