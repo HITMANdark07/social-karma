@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import KarmaWallet from "./karmaWallet.js";
 
 const userSchema =  new mongoose.Schema({
     name:{
@@ -40,6 +41,13 @@ const userSchema =  new mongoose.Schema({
         default:0,
     }
 },{ timestamps:true });
+
+userSchema.pre('save', async function() {
+    const karmaWallet = new KarmaWallet({
+        user: this._id
+    })
+    await karmaWallet.save();
+})
 
 const User =  mongoose.model('User', userSchema);
 
