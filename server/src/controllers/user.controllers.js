@@ -42,9 +42,9 @@ export const list = async (req, res) => {
   let limit = qry.limit || 10;
   let skip = qry.skip || 0;
   if (qry?.role) {
-    q["role"] = qry?.role;
+    q["subRole"] = qry?.role;
   }
-  let total = await User.countDocuments({});
+  let total = await User.countDocuments(q);
   User.find(q)
     .limit(parseInt(limit))
     .skip(parseInt(skip))

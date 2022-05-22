@@ -33,9 +33,7 @@ export const Layout = () => {
   };
   console.log(user, token);
   useEffect(() => {
-    console.log("heey...")
     if (!user || !token) {
-      console.log("There...");
       navigate("/");
     }
   }, [user, token,navigate]);
