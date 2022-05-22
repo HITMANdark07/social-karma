@@ -2,10 +2,14 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import useReducer from './slices/user.slice';
+import donationReducer from './slices/donation.slice';
+import donatorReducer from './slices/donator.slice';
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
-  user: useReducer
+  user: useReducer,
+  donation:donationReducer,
+  donators:donatorReducer
 });
 
 const persistConfig = {

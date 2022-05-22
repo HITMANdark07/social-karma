@@ -9,9 +9,7 @@ export const Layout = () => {
   const { user, token } = useSelector((state) => state.user);
   console.log(user, token);
   useEffect(() => {
-    console.log("heey...")
     if (!user || !token) {
-      console.log("There...");
       navigate("/");
     }
   }, [user, token,navigate]);
