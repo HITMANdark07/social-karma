@@ -39,8 +39,8 @@ const responseGoogleAsDonator = (tokenId, profileObj) => {
                 </h1>
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
                 <div className="flex flex-row justify-evenly">
-                <GoogleLoginButton text="Login As Volunteer" informParent={responseGoogleAsVolunteer} />
-                <GoogleLoginButton text="Login As Donator" informParent={responseGoogleAsDonator} />
+                  <GoogleLoginButton text="Login As Volunteer" informParent={responseGoogleAsVolunteer} style={{opacity: "1"}}/>
+                  <GoogleLoginButton text="Login As Donator" informParent={responseGoogleAsDonator} />
                 </div>
               </div>
             </div>

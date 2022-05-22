@@ -208,7 +208,7 @@ a:focus,
   display: table;
   width: 100%;
   padding: 0;
-  background: url(../img/intro-bg.jpg) center center no-repeat;
+  background: url(../img/ngo-background.jpg) center center no-repeat;
   background-color: #e5e5e5;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -216,7 +216,7 @@ a:focus,
   -o-background-size: cover;
 }
 .intro .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
 }
 .intro h1 {
   font-family: "Raleway", sans-serif;
@@ -247,6 +247,8 @@ header .intro-text {
 /* Features Section */
 #features {
   background: #f6f6f6;
+  padding: 20px;
+  padding-bottom:30px;
 }
 #features i.fa {
   font-size: 38px;
@@ -382,13 +384,16 @@ header .intro-text {
 .hover-bg .hover-text > h4 {
   opacity: 0;
   color: #fff;
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
   transition: all 0.3s;
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: 500;
   text-transform: uppercase;
+  transform: translateY(200px);
+  -webkit-transform: translateY(200px);
+  -moz-transform: translateY(200px);
+  -ms-transform: translateY(200px);
+  -o-transform: translateY(200px);
 }
 .hover-bg:hover .hover-text > h4 {
   opacity: 1;
