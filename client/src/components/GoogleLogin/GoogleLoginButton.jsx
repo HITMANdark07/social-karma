@@ -15,9 +15,9 @@ const GoogleLoginButton = ({text,informParent = f => f}) => {
     return(
         <div className="pb-3">
             <GoogleLogin
-                clientId={'262648801792-mjlbfg3cb1kqdq7nlrdeaarq1obgca54.apps.googleusercontent.com'}
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                 render={renderProps => (
-                    <button className="flex justify-center items-center btn btn-custom btn-lg page-scroll" style={{
+                    <button className="flex btn btn-custom btn-lg page-scroll" style={{
                         backgroundColor: '#DB4437ff',
                       }} onClick={renderProps.onClick} disabled={renderProps.disabled}>
                      <ImGooglePlus2 style={{marginRight:10}} size={25} />  {text}

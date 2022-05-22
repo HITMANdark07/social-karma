@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 const corsOptions = {
     credentials: true,
-    origin:"http://localhost:3000",
+    origin:["http://localhost:3000","https://social-karma-front.herokuapp.com","http://social-karma-front.herokuapp.com"],
   };
 app.use(cors(corsOptions));
 
