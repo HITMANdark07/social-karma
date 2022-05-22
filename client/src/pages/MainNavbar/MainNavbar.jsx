@@ -21,7 +21,8 @@ const MainNavbar = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const { photo } = useSelector(state => state.user?.user);
+  const {user} = useSelector(state => state.user);
+  const photo = user?.photo;
   const handleClose = () => {
     setAnchorEl(null);
   };
