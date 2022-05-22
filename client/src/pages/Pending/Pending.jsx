@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import MainNavbar from "../MainNavbar/MainNavbar";
 import Sidebar from "../Sidebar/Sidebar";
 
-export const Layout = () => {
+export const Pending = () => {
   const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.user);
 
@@ -15,7 +15,7 @@ export const Layout = () => {
   }, [user, token,navigate]);
   return (
     <div>
-      <Sidebar active="dashboard" />
+      <Sidebar active="pending" />
       <MainNavbar />
     </div>
   );

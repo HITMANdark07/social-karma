@@ -104,7 +104,7 @@ export const search = (req, res) => {
 export const login = (req, res) => {
   User.findOne({ email: req.body.email }).exec((err, user) => {
     if (err || !user) {
-      const { idToken, name, photo } = req.body;
+      const { idToken, name, photo, subRole } = req.body;
       clinet
         .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID })
         .then((response) => {
@@ -112,7 +112,7 @@ export const login = (req, res) => {
           const { email_verified, email } = response.payload;
           if (email_verified) {
             console.log(name, email, photo);
-            const u = new User({ name, email, photo, balance: 0 });
+            const u = new User({ name, email, photo, subRole });
             u.save(async (err, us) => {
               if (err) {
                 return res.status(400).json({

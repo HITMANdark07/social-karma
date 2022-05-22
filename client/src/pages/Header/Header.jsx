@@ -1,4 +1,31 @@
+import { useDispatch } from "react-redux"
+import GoogleLoginButton from "../../components/GoogleLogin/GoogleLoginButton"
+import { googleLogin } from "../../store/actions/user.action";
+
 export const Header = (props) => {
+
+  const dispatch = useDispatch();
+
+  const responseGoogleAsVolunteer = (tokenId, profileObj) => {
+    const sendData = {
+        name: profileObj.givenName+" "+profileObj.familyName,
+        email: profileObj.email,
+        photo: profileObj.imageUrl,
+        idToken:tokenId,
+        subRole:'volunteer'
+    }
+    dispatch(googleLogin(sendData));
+}
+const responseGoogleAsDonator = (tokenId, profileObj) => {
+    const sendData = {
+        name: profileObj.givenName+" "+profileObj.familyName,
+        email: profileObj.email,
+        photo: profileObj.imageUrl,
+        idToken:tokenId,
+        subRole:'donator'
+    }
+    dispatch(googleLogin(sendData));
+}
   return (
     <header id='header'>
       <div className='intro'>
@@ -11,12 +38,10 @@ export const Header = (props) => {
                   <span></span>
                 </h1>
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
-                <a
-                  href='#features'
-                  className='btn btn-custom btn-lg page-scroll'
-                >
-                  Learn More
-                </a>{' '}
+                <div className="flex flex-row justify-evenly">
+                <GoogleLoginButton text="Login As Volunteer" informParent={responseGoogleAsVolunteer} />
+                <GoogleLoginButton text="Login As Donator" informParent={responseGoogleAsDonator} />
+                </div>
               </div>
             </div>
           </div>

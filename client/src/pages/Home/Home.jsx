@@ -16,6 +16,7 @@ import {Services } from '../Services/Services';
 import {Testimonials } from '../Testimonials/Testimonials';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { MainNavbar } from '../MainNavbar/MainNavbar';
+import { useNavigate } from 'react-router-dom';
 
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -25,23 +26,22 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const Home = () => {
     const [landingPageData, setLandingPageData] = useState({});
+    const navigate = useNavigate();
     useEffect(() => {
         setLandingPageData(JsonData);
     }, []);
 
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user.user);
-    console.log(user);
-
-    const responseGoogle = (tokenId, profileObj) => {
-        const sendData = {
-            name: profileObj.givenName+" "+profileObj.familyName,
-            email: profileObj.email,
-            photo: profileObj.imageUrl,
-            idToken:tokenId
+    const {user, token} = useSelector(state => state.user);
+    const subRole  = user?.subRole;
+    useEffect(() => {
+        if(user && token && subRole==='donator'){
+            navigate('/dashboard')
+        }else if(user && token && subRole==='volunteer'){
+            navigate('/volunteer');
         }
-        dispatch(googleLogin(sendData));
-    }
+    },[user, token, navigate]);
+    
 
     return(
         <div>
@@ -54,7 +54,6 @@ const Home = () => {
             <Testimonials data={landingPageData.Testimonials} />
             <Team data={landingPageData.Team} />
             <Contact data={landingPageData.Contact} />
-            {/* <GoogleLoginButton informParent={responseGoogle} /> */}
         </div>
     )
 };

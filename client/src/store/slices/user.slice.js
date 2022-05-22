@@ -15,9 +15,10 @@ const userSlice = createSlice({
     // loginSuccess: (state, action) => {
     //   state.user = action.payload;
     // },
-    // logoutSuccess: (state, action) =>  {
-    //   state.user = null;
-    // },
+    logout: (state) =>  {
+      state.user = null;
+      state.token =null;
+    },
   },
   extraReducers:(builder) => {
     builder.addCase(googleLogin.pending, (state, action) => {
@@ -42,5 +43,5 @@ const userSlice = createSlice({
       })
   }
 });
-
+export const {logout} = userSlice.actions
 export default userSlice.reducer;

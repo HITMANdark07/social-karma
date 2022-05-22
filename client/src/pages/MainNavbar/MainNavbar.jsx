@@ -11,12 +11,17 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-export const MainNavbar = () => {
+import { logout } from '../../store/slices/user.slice';
+import { useDispatch, useSelector } from 'react-redux';
+const MainNavbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const { photo } = useSelector(state => state.user?.user);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -32,7 +37,7 @@ export const MainNavbar = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <img src={photo} style={{ width: 35, height: 35, borderRadius:50 }} />
         </IconButton>
         <Menu
         anchorEl={anchorEl}
@@ -69,7 +74,9 @@ export const MainNavbar = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => {
+          dispatch(logout());
+        }}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -78,4 +85,6 @@ export const MainNavbar = () => {
       </Menu>
     </nav>
   )
-}
+};
+
+export default MainNavbar;

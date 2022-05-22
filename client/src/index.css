@@ -6,10 +6,8 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  font-size: medium;
   /* font-family: 'Macondo','cursive'; */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
 }
 
 code {

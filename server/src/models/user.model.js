@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { LocationSchema } from "./foodDonation.model.js";
 import KarmaWallet from "./karmaWallet.js";
 
 const userSchema =  new mongoose.Schema({
@@ -23,13 +24,19 @@ const userSchema =  new mongoose.Schema({
         trim:true,
         unique:true
     },
+    location:LocationSchema,
+    subRole:{
+        type:String,
+        enum:['volunteer','donator','admin'],
+        default:'volunteer'
+    },
     photo:{
         type:String,
         required:true,
     },
     role:{
         type:Number,
-        enum:[0,1], // 0 -> server //  1-> user
+        enum:[0,1], // 0 -> server //  1-> admin
         default:0
     },
     otp:{

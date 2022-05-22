@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema.Types;
 
-const LocationSchema = mongoose.Schema(
+export const LocationSchema = mongoose.Schema(
   {
     lat: {
       type: Number,
