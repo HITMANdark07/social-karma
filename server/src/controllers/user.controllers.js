@@ -4,6 +4,7 @@ import { expressjwt } from "express-jwt";
 import { OAuth2Client } from "google-auth-library";
 import { errorHandler } from "../helpers/dbErrorHandler.js";
 import { GOOGLE_CLIENT_ID, NODE_JWT_SECRET, SOCKET_ORIGIN } from "../constants.js";
+import KarmaWallet from "../models/karmaWallet.js";
 import { sendMail } from "../services/mail.services.js";
 import { signedUpMailTemplate } from '../services/mail.templates.js';
 
@@ -36,6 +37,22 @@ export const getProfile = (req, res) => {
     },
   });
 };
+
+export const getWallet = async (req, res) => {
+  try{
+    let wallet = await KarmaWallet.findOne({user:req.profile._id}).exec();;
+    if(!wallet){
+      return res.status(400).json({
+        message:"Wallet Unavailable"
+      })
+    }
+    return res.status(200).json(wallet)
+  }catch(err){
+    return res.status(400).json({
+      message:err
+    })
+  }
+}
 export const list = async (req, res) => {
   let q = {};
   let qry = req.query;

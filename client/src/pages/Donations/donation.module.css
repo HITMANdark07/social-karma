@@ -1,0 +1,10 @@
+.container {
+    max-width: 400px;
+    width: 100%;
+    margin: 10 auto;
+    position: relative;
+    border-radius: 15px;
+    text-align: center;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }

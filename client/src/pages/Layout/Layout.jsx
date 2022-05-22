@@ -1,21 +1,63 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../MainNavbar/MainNavbar";
 import Sidebar from "../Sidebar/Sidebar";
 import style from "../Layout/Layout.module.css";
+import { toast } from "react-toastify";
+import api from "../../store/api";
+import { getDonationsPerUser } from "../../store/actions/donation.action";
 
 export const Layout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user, token } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
   const [Food, setFood] = React.useState({
-    Amount: "",
-    Expiry: "",
-    Description: ""
+    donator:user?._id,
+    foodWeight: "",
+    location:{
+      lat:"",
+      lng:""
+    },
+    expectedExpiry: "",
+    foodDesc: "",
+    contact:""
   });
+  const createDonation = async (data) => {
+    setLoading(true);
+    try {
+      const { data:responseData } = await api.post(`/fooddonation/create`,data)
+
+      if(responseData._id){
+        setLoading(false);
+        toast.success("Food Donation Submited");
+        navigate('/donations');
+        dispatch(getDonationsPerUser(user?._id));
+      }  
+    } catch (e) {
+      toast.error(e?.response?.data?.message);
+      setLoading(false)
+    }
+  }
+
+  const getCurrentLocation = () =>{
+    navigator.geolocation.getCurrentPosition((pos) =>{
+      let location = {
+        lat:pos.coords.latitude,
+        lng:pos.coords.longitude
+      }
+      setFood((prevData) => ({
+        ...prevData,
+        location:location
+      }));
+    })
+  }
+  useEffect(() => {
+    getCurrentLocation();
+  },[]);
 
   const handleInputChange = (e) => {
-    console.log(e.target.value);
     setFood((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value
@@ -25,13 +67,12 @@ export const Layout = () => {
   const formHandler = (e) => {
     e.preventDefault();
 
-    if (Food.Amount === "" || Food.Expiry === "" || Food.Description === "") {
-      alert("Please fill in all fields");
+    if (Food.foodWeight === "" || Food.expectedExpiry === "" || Food.foodDesc === "" || Food.contact ==="") {
+      toast.warn("Please fill in all fields");
     } else {
-      console.log(Food);
+      createDonation(Food);
     }
   };
-  console.log(user, token);
   useEffect(() => {
     if (!user || !token) {
       navigate("/");
@@ -49,47 +90,56 @@ export const Layout = () => {
               placeholder="Amount of food(in Kg)"
               type="number"
               tabIndex="1"
-              name="Amount"
+              name="foodWeight"
               required
               autoFocus
               onChange={handleInputChange}
-              value={Food.Amount}
+              value={Food.foodWeight}
             />
           </fieldset>
           <fieldset>
             <input
-              placeholder="Expiry Date"
+              placeholder="Exipry Date"
               type="text"
               tabindex="3"
               required
-              name="Expiry"
+              name="expectedExpiry"
               onFocus={(e) => (e.target.type = "datetime-local")}
               onBlur={(e) => (e.target.type = "text")}
               onChange={handleInputChange}
-              value={Food.Expiry}
+              value={Food.expectedExpiry}
             />
           </fieldset>
           <fieldset>
             <textarea
               placeholder="Food Description"
               tabindex="5"
-              name="Description"
+              name="foodDesc"
               required
               onChange={handleInputChange}
-              value={Food.Description}
+              value={Food.foodDesc}
             ></textarea>
           </fieldset>
           <fieldset>
-            <button name="submit" type="submit" id="location-submit">
-              AUTO DETECT LOCATION
-            </button>
+            <textarea
+              placeholder="Contact Information"
+              tabindex="5"
+              name="contact"
+              required
+              onChange={handleInputChange}
+              value={Food.contact}
+            ></textarea>
           </fieldset>
+          {Food.location.lat==="" && (
+            <div className="text-red-600 font-bold">Please Allow location Access</div>
+          )}
           <fieldset>
             <button
               name="submit"
               type="submit"
               id="contact-submit"
               data-submit="...Sending"
+              disabled={Food.location.lat===""}
             >
               Submit
             </button>

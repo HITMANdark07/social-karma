@@ -30,6 +30,11 @@ const Sidebar = ({active}) => {
               }}>
                 <span style={{color:active==='donations' ? 'white':''}}>DONATIONS</span>
               </li>
+              <li style={{backgroundColor: active==='wallet' ? 'rgba(256,256,256,0.3)': 'transparent'}} onClick={() => {
+                navigate('/wallet')
+              }}>
+                <span style={{color:active==='wallet' ? 'white':''}}>KARMA WALLET</span>
+              </li>
             </ul>
             :
             <ul>
@@ -37,6 +42,11 @@ const Sidebar = ({active}) => {
                 navigate('/volunteer')
               }}>
                 <span style={{color:active==='volunteer' ? 'white':''}}>VOLUNTEER</span>
+              </li>
+              <li style={{backgroundColor: active==='wallet' ? 'rgba(256,256,256,0.3)': 'transparent'}} onClick={() => {
+                navigate('/wallet')
+              }}>
+                <span style={{color:active==='wallet' ? 'white':''}}>KARMA WALLET</span>
               </li>
               <li style={{backgroundColor: active==='pending' ? 'rgba(256,256,256,0.3)': 'transparent'}} onClick={() => {
                 navigate('/pending')

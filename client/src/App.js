@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDonationsPerUser } from "./store/actions/donation.action";
 import { getDonators } from "./store/actions/donators.action";
+import { Wallet } from "./pages/KarmaWallet/KarmaWallet";
+import { getWalletBalance } from "./store/actions/wallet.action";
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
     if(user){
       dispatch(getDonationsPerUser(user?._id));
       dispatch(getDonators('volunteer'));
+      dispatch(getWalletBalance(user?._id));
     }
   },[user]);
   return (
@@ -33,6 +36,7 @@ function App() {
         <Route path='/volunteer' element={<Volunteer />} />
         <Route path='/pending' element={<Pending />} />
         <Route path='/completed' element={<Completed />} />
+        <Route path='/wallet' element={<Wallet />} />
       </Routes>
     </Router>
   );

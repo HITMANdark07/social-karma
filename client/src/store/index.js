@@ -4,12 +4,14 @@ import { persistReducer } from 'redux-persist';
 import useReducer from './slices/user.slice';
 import donationReducer from './slices/donation.slice';
 import donatorReducer from './slices/donator.slice';
+import walletReducer from './slices/wallet.slice';
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
   user: useReducer,
   donation:donationReducer,
-  donators:donatorReducer
+  donators:donatorReducer,
+  wallet: walletReducer
 });
 
 const persistConfig = {

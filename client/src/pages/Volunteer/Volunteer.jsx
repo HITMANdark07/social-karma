@@ -17,6 +17,9 @@ export const Volunteer = () => {
     <div>
       <Sidebar active="volunteer" />
       <MainNavbar />
+      <div style={{marginTop:100, textAlign:'center', fontSize:20}}>
+        <h1>You will be assigned some tasks sortly</h1>
+      </div>
     </div>
   );
 };

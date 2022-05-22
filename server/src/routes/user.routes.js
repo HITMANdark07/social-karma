@@ -5,6 +5,7 @@ const router = Router();
 
 router.post("/login", userController.login);
 router.get("/list",userController.list);
+router.get("/wallet/:userId", userController.getWallet );
 router.get("/get-profile/:userId",userController.getProfile);
 
 router.param("userId", userController.userById);

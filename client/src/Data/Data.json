@@ -1,6 +1,6 @@
 {
   "Header": {
-    "title": "We are a Landing Page",
+    "title": "Welcome to Social Karma",
     "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
   },
   "About": {
@@ -127,29 +127,29 @@
   "Team": [
     {
       "img": "img/team/01.jpg",
-      "name": "John Doe",
+      "name": "Shekhar Kumar",
       "job": "Director"
     },
     {
       "img": "img/team/02.jpg",
-      "name": "Mike Doe",
-      "job": "Senior Designer"
+      "name": "Shekhar Kumar",
+      "job": "Senior Developer"
     },
     {
       "img": "img/team/03.jpg",
-      "name": "Jane Doe",
+      "name": "Bholu tiwari",
       "job": "Senior Designer"
     },
     {
       "img": "img/team/04.jpg",
-      "name": "Karen Doe",
+      "name": "Bholu Tiwari",
       "job": "Project Manager"
     }
   ],
   "Contact": {
-    "address": "4321 California St, San Francisco, CA 12345 ",
-    "phone": "+1 123 456 1234",
-    "email": "info@company.com",
+    "address": "Techno main salt lake Kolata ",
+    "phone": "+91 8524179630",
+    "email": "socialkarma0@gmail.com",
     "facebook": "fb.com",
     "twitter": "twitter.com",
     "youtube": "youtube.com"

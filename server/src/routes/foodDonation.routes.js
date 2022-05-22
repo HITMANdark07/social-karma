@@ -9,7 +9,7 @@ router.post("/create",foodDonationValidator.createFoodDonationValidator, foodDon
 router.put("/update-status",foodDonationController.updateStatus);
 router.put("/assign-volunteer",foodDonationController.assignVolenteer);
 router.get("/list/volunteer/:volunteerId",foodDonationController.listAssignedTasks);
-router.get("/list/donator/:donatorId",foodDonationController.listAssignedTasks);
+router.get("/list/donator/:donatorId",foodDonationController.listDonations);
 
 router.param("volunteerId", userController.userById);
 router.param("donatorId", userController.userById);
