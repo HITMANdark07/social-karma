@@ -15,6 +15,7 @@ export const Image = ({ title, largeImage, smallImage }) => {
             src={smallImage}
             className='img-responsive'
             alt={title}
+            style={{ width: '100%', height: '400px',objectFit:"cover",margin:"10px" }}
           />{' '}
         </a>{' '}
       </div>

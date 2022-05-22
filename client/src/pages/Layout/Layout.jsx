@@ -44,7 +44,7 @@ export const Layout = () => {
       <Sidebar active="dashboard" />
       <MainNavbar />
       <div className={style.container}>
-        <form id="contact" action="" method="post" onSubmit={formHandler}>
+        <form className={style.contact} action="" method="post" onSubmit={formHandler}>
           <h3>Donate Food</h3>
           <fieldset>
             <input

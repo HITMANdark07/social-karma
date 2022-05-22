@@ -12,10 +12,10 @@ export const Gallery = (props) => {
           </p>
         </div>
         <div className='row'>
-          <div className='portfolio-items'>
+          <div className='portfolio-items' style={{height: '400px'}}>
             {props.data
               ? props.data.map((d, i) => (
-                <div key={`${d.title}-${i}`} className='col-sm-6 col-md-4 col-lg-4'>
+                <div key={`${d.title}-${i}`} className='col-sm-6 col-md-3 col-lg-3'>
                   <Image title={d.title} largeImage={d.largeImage} smallImage={d.smallImage} />
                 </div>
               ))
